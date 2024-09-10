@@ -1,0 +1,18 @@
+.idea
+.DS_Store
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+ vendor/
+go.work
+
+report.xml
+
+.idea/
+.bin/
+
+*.gen.*

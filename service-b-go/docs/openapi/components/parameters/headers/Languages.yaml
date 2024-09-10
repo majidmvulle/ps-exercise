@@ -1,0 +1,11 @@
+AcceptLanguage:
+  description: The language you prefer for messages.
+  in: header
+  name: "Accept-Language"
+  schema:
+    type: string
+    enum:
+      - en-US
+      - pt-PT
+  required: false
+  example: en-US

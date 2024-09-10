@@ -1,0 +1,5 @@
+DateTime:
+  description: A date-time in the ISO 8601 format including the offset.
+  type: string
+  format: date-time
+  example: "2006-01-02T15:04:05+00:00"

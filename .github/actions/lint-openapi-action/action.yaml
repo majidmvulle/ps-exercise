@@ -1,0 +1,14 @@
+name: "Redocly OpenAPI Linting"
+description: "Receives an OpenAPI directory path and performs linting"
+inputs:
+  paths:
+    description: "Paths of base OpenAPI files as a space separated string"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Run Redocly linting (${{ inputs.paths }})
+      id: redocly-linting
+      run: |
+        redocly lint ${{ inputs.paths }} --format=github-actions --config=$GITHUB_WORKSPACE/redocly.yaml
+      shell: bash

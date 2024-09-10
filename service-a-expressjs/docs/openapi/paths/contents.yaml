@@ -1,0 +1,23 @@
+parameters:
+  - $ref: "./../components/parameters/headers/Languages.yaml#/AcceptLanguage"
+
+get:
+  tags:
+    - Contents
+  summary: List Contents.
+  description: "This operation lists contents."
+  operationId: ListContents
+  x-eov-operation-handler: contents
+  responses:
+    '200':
+      $ref: "./../components/responses/Contents.yaml#/ListContents"
+    '401':
+      $ref: "./../components/responses/Http.yaml#/Unauthorized"
+    '403':
+      $ref: "./../components/responses/Http.yaml#/Forbidden"
+    '422':
+      $ref: "./../components/responses/Http.yaml#/ValidationError"
+    '429':
+      $ref: "./../components/responses/Http.yaml#/TooManyRequests"
+  security:
+    - ApiKey: []

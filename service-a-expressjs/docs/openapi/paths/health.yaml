@@ -1,0 +1,23 @@
+parameters:
+  - $ref: "./../components/parameters/headers/Languages.yaml#/AcceptLanguage"
+
+get:
+  tags:
+    - Health
+  summary: Health Check.
+  description: "This operation returns the service health status."
+  operationId: HealthCheck
+  x-eov-operation-handler: health
+  responses:
+    '200':
+      $ref: "./../components/responses/Health.yaml#/HealthCheck"
+    '401':
+      $ref: "./../components/responses/Http.yaml#/Unauthorized"
+    '403':
+      $ref: "./../components/responses/Http.yaml#/Forbidden"
+    '422':
+      $ref: "./../components/responses/Http.yaml#/ValidationError"
+    '429':
+      $ref: "./../components/responses/Http.yaml#/TooManyRequests"
+  security:
+    - ApiKey: []

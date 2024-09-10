@@ -1,0 +1,19 @@
+Content:
+  description: An instance of content.
+  type: object
+  required:
+    - id
+    - text
+    - created_at
+    - updated_at
+  properties:
+    id:
+      type: integer
+      example: 1
+    text:
+      type: string
+      example: "hello world"
+    created_at:
+      $ref: "./Dates.yaml#/DateTime"
+    updated_at:
+      $ref: "./Dates.yaml#/DateTime"

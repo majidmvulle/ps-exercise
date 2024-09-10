@@ -1,0 +1,150 @@
+ValidationError:
+  description: Invalid Input.
+  content:
+    application/json:
+      schema:
+        $ref: "./../schemas/Errors.yaml#/ValidationError"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+Forbidden:
+  description: Forbidden.
+  content:
+    text/plain:
+      schema:
+        type: string
+        example: "Forbidden"
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Forbidden"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+NotFound:
+  description: Not Found.
+  content:
+    text/plain:
+      schema:
+        type: string
+        example: "Not Found"
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Not Found"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+
+TooManyRequests:
+  description: Too Many Requests.
+  content:
+    text/plain:
+      schema:
+        type: string
+        example: "Too Many Requests"
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Too Many Requests"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+Unauthorized:
+  description: Unauthorized.
+  content:
+    text/plain:
+      schema:
+        type: string
+        example: "Unauthorized"
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Unauthorized"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+Pagination:
+  type: object
+  required:
+    - count
+    - page
+    - per_page
+    - total
+    - total_pages
+  properties:
+    count:
+      description: Number of items in this page.
+      type: integer
+      example: 20
+    page:
+      description: Current page number.
+      type: integer
+      example: 1
+    per_page:
+      description: Maximum number of items per page.
+      type: integer
+      example: 20
+    total:
+      description: Total items available in the current query.
+      type: integer
+      example: 40
+    total_pages:
+        description: Total number of available pages.
+        type: integer
+        example: 2
+
+ListMetadata:
+  type: object
+  required:
+    - pagination
+  properties:
+    pagination:
+      $ref: "#/Pagination"

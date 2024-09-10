@@ -1,0 +1,6 @@
+package: models
+generate:
+  gin-server: false
+  models: true
+  client: false
+output: ./internal/models/models.gen.go

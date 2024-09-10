@@ -1,0 +1,28 @@
+HealthCheck:
+  description: An instance of Content.
+  content:
+    application/json:
+      schema:
+        $ref: "./../schemas/Health.yaml#/HealthCheck"
+      examples:
+        UP:
+          value:
+            status: "UP"
+            message: "all is well"
+        DOWN:
+          value:
+            status: "UP"
+            message: "unable to connect to database"
+        UNKNOWN:
+          value:
+            status: "UNKNOWN"
+            message: "unknown error, check logs"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"

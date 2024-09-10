@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Service A API
+  termsOfService: https://github.com/majidmvulle/ps-exercise
+  contact:
+    name: Contact our support
+    email: majidmvulle@github.com
+    url: https://github.com/majidmvulle/ps-exercise
+  description: >
+    A REST API Documentation for the service A.
+  license:
+    name: "None"
+tags:
+  - name: Contents
+    description: "Operations related to contents."
+  - name: Health
+    description: "Operations related to health checks."
+servers:
+  - url: https://{tenant}
+    variables:
+      tenant:
+        default: localhost:3000
+        description: Your tenant id.
+  - url: http://localhost:3000
+
+paths:
+ # Contents
+  /api/v1/contents:
+    $ref: "paths/contents.yaml"
+
+  /api/v1/contents/{id}:
+    $ref: "paths/contents-by-id.yaml"
+
+  /health:
+    $ref: "paths/health.yaml"
+
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key

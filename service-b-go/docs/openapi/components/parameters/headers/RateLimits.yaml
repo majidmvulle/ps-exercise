@@ -1,0 +1,27 @@
+XRateLimitLimit:
+  description: The requests quota in the time window.
+  schema:
+    type: integer
+    example: 50
+
+XRateLimitPolicy:
+  description: >-
+    The policy as defined in paragraph 2.1 of the IETF draft 
+    (https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-ratelimit-headers#section-2.1), 
+    the example here indicates 100 requests in 60 seconds.
+  schema:
+    type: string
+    example: "100;w=60"
+    
+XRateLimitRemaining:
+  description: The remaining requests quota in the current window.
+  schema:
+    type: integer
+    example: 5
+
+XRateLimitReset:
+  description: The time remaining in the current window, specified in seconds.
+  schema:
+    type: integer
+    example: 3100
+    

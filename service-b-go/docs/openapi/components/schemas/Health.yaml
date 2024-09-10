@@ -1,0 +1,16 @@
+HealthCheck:
+  type: object
+  required:
+    - status
+    - message
+  properties:
+    status:
+      type: string
+      enum:
+        - UP
+        - DOWN
+        - UNKNOWN
+      example: UP
+    message:
+      type: string
+      example: "all is well"

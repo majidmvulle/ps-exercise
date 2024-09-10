@@ -1,0 +1,68 @@
+Content:
+  description: An instance of Content.
+  content:
+    application/json:
+      schema:
+        $ref: "./../schemas/Contents.yaml#/Content"
+      examples:
+        HelloWorld:
+          value:
+            id: 1
+            content: "hello world"
+            created_at: "2006-01-02T15:04:05+00:00"
+            updated_at: "2006-01-02T15:04:05+00:00"
+        GoodByeWorld:
+          value:
+            id: 2
+            content: "Goodbye World!"
+            created_at: "2006-01-02T15:04:05+00:00"
+            updated_at: "2006-01-02T15:04:05+00:00"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"
+
+ListContents:
+  description: An instance of Content.
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "./../schemas/Contents.yaml#/Content"
+          metadata:
+            $ref: "./Http.yaml#/ListMetadata"
+      example:
+        data:
+          - id: 1
+            content: "hello world"
+            created_at: "2006-01-02T15:04:05+00:00"
+            updated_at: "2006-01-02T15:04:05+00:00"
+          - id: 2
+            content: "Goodbye World!"
+            created_at: "2006-01-02T15:04:05+00:00"
+            updated_at: "2006-01-02T15:04:05+00:00"
+        metadata:
+          pagination:
+            count: 2
+            page: 1
+            per_page: 20
+            total: 2
+            total_pages: 1
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"

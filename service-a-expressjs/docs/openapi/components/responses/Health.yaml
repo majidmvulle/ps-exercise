@@ -1,0 +1,33 @@
+HealthCheck:
+  description: An instance of Content.
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - UP
+              - DOWN
+              - UNKNOWN
+            example: UP
+      examples:
+        UP:
+          value:
+            status: "UP"
+        DOWN:
+          value:
+            status: "UP"
+        UNKNOWN:
+          value:
+            status: "UNKNOWN"
+  headers:
+    X-RateLimit-Limit:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitLimit"
+    X-RateLimit-Policy:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitPolicy"
+    X-RateLimit-Remaining:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitRemaining"
+    X-RateLimit-Reset:
+      $ref: "./../parameters/headers/RateLimits.yaml#/XRateLimitReset"

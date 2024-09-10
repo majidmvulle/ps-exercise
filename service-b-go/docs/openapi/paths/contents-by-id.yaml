@@ -1,0 +1,31 @@
+parameters:
+  - $ref: "./../components/parameters/headers/Languages.yaml#/AcceptLanguage"
+  - description: The ID of the Content.
+    in: path
+    name: "id"
+    schema:
+      type: integer
+    required: true
+    example: 1
+
+get:
+  tags:
+    - Contents
+  summary: Fetch Content by ID.
+  description: "This operation fetches Content by ID."
+  operationId: FetchContentByID
+  x-eov-operation-handler: contents
+  responses:
+    '200':
+      $ref: "./../components/responses/Contents.yaml#/Content"
+    '401':
+      $ref: "./../components/responses/Http.yaml#/Unauthorized"
+    '403':
+      $ref: "./../components/responses/Http.yaml#/Forbidden"
+    '422':
+      $ref: "./../components/responses/Http.yaml#/ValidationError"
+    '429':
+      $ref: "./../components/responses/Http.yaml#/TooManyRequests"
+  security:
+    - ApiKey: []
+

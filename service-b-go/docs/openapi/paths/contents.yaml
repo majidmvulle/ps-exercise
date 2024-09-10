@@ -1,0 +1,35 @@
+parameters:
+  - $ref: "./../components/parameters/headers/Languages.yaml#/AcceptLanguage"
+  - in: query
+    name: "page"
+    schema:
+      type: integer
+      example: 1
+    description: Page number to view, defaults to 1
+  - in: query
+    name: "per_page"
+    schema:
+      type: integer
+      example: 20
+    description: Maximum number of items per page, defaults to 20, max is 40. Requesting per_page=41 will only return 40 items (if available)
+
+get:
+  tags:
+    - Contents
+  summary: List Contents.
+  description: "This operation lists contents."
+  operationId: ListContents
+  x-eov-operation-handler: contents
+  responses:
+    '200':
+      $ref: "./../components/responses/Contents.yaml#/ListContents"
+    '401':
+      $ref: "./../components/responses/Http.yaml#/Unauthorized"
+    '403':
+      $ref: "./../components/responses/Http.yaml#/Forbidden"
+    '422':
+      $ref: "./../components/responses/Http.yaml#/ValidationError"
+    '429':
+      $ref: "./../components/responses/Http.yaml#/TooManyRequests"
+  security:
+    - ApiKey: []
