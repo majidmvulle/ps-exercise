@@ -25,6 +25,8 @@ go.work
 .idea
 .coverage
 
+.env
+
 # OpenAPI
 docs/openapi/api.bundled*
 
