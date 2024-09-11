@@ -1,4 +1,4 @@
-import express, { Request,  Response, NextFunction, Express} from "express";
+import express, {Request, Response, NextFunction, Express, Errback, ErrorRequestHandler} from "express";
 import dotenv from "dotenv";
 import * as OpenApiValidator from 'express-openapi-validator';
 import path from "node:path";
@@ -19,12 +19,12 @@ const apiKeyValidator = function (req: Request, res: Response, next: NextFunctio
 app.use(
     OpenApiValidator.middleware({
         apiSpec: spec,
-        validateApiSpec: false,
-        validateRequests: false,
-        validateResponses: false,
+        validateApiSpec: true,
+        validateRequests: true,
+        validateResponses: true,
         validateSecurity: {
             handlers: {
-                ApiKey: function (req, scopes, schema){
+                ApiKey: function (req){
                     const apiKey = req.headers['x-api-key'];
 
                     if (apiKey != process.env.API_KEY) {
@@ -40,6 +40,16 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+const jsonErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.status).send({
+    status: err.status,
+    message: err.message,
+  });
+  return next();
+};
+
+app.use(jsonErrorHandler);
 
 app.use(apiKeyValidator);
 

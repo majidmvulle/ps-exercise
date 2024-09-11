@@ -23,7 +23,7 @@ func contentsRoutes(db *sql.DB, group *gin.RouterGroup) {
 	}
 }
 
-func healthRoutes(db *sql.DB, group *gin.RouterGroup) {
+func healthRoutes(db *sql.DB, group *gin.Engine) {
 	ctrl := ctrlHealth.New(repoHealth.New(db))
 
 	group.GET("/health", ctrl.Get)

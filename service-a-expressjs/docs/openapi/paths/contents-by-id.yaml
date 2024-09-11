@@ -22,6 +22,8 @@ get:
       $ref: "./../components/responses/Http.yaml#/Unauthorized"
     '403':
       $ref: "./../components/responses/Http.yaml#/Forbidden"
+    '404':
+      $ref: "./../components/responses/Http.yaml#/NotFound"
     '422':
       $ref: "./../components/responses/Http.yaml#/ValidationError"
     '429':

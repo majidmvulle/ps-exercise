@@ -3,14 +3,14 @@ Content:
   type: object
   required:
     - id
-    - content
+    - text
     - created_at
     - updated_at
   properties:
     id:
       type: integer
       example: 1
-    content:
+    text:
       type: string
       example: "hello world"
     created_at:

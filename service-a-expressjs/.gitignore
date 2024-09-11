@@ -132,4 +132,8 @@ dist
 
 
 # OpenAPI
-docs/openapi/api.bundled*
+docs/openapi/*.bundled*
+
+#service-b clients
+clients/service-b/*
+!clients/service-b/.openapi-generator-ignore

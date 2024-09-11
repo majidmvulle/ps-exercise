@@ -27,6 +27,7 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.Default())
+	r.Use(AuthApiKey(cfg.ApiKey))
 
 	api := r.Group("/api")
 	{
@@ -35,8 +36,9 @@ func main() {
 			contentsRoutes(db, v1)
 		}
 
-		healthRoutes(db, api)
 	}
+
+	healthRoutes(db, r)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -60,4 +62,18 @@ func main() {
 	}
 
 	fmt.Println("server terminated")
+}
+
+func AuthApiKey(cfgApiKey string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		apiKey := c.Request.Header.Get("X-API-Key")
+
+		if apiKey != cfgApiKey {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Unauthorized", "error_code": "unauthorized"})
+
+			return
+		}
+
+		c.Next()
+	}
 }

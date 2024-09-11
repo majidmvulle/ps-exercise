@@ -22,6 +22,8 @@ type AppConfig struct {
 		DSN    string
 		Driver string
 	}
+
+	ApiKey string
 }
 
 func Config() *AppConfig {
@@ -54,4 +56,7 @@ func loadConfig() {
 	// Database.
 	cfg.Database.DSN = viper.GetString("DATABASE_DSN")
 	cfg.Database.Driver = viper.GetString("DATABASE_DRIVER")
+
+	// API Key.
+	cfg.ApiKey = viper.GetString("API_KEY")
 }

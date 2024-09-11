@@ -1,19 +1,60 @@
 import { Request, Response } from "express";
+import {
+  Content,
+  ContentsApi,
+  FetchContentByIDRequest,
+  ListContents200Response, ListContentsRequest,
+  ResponseError
+} from "../clients/service-b";
+import {ServiceBConfig} from "../config/config";
 
-const listContents = (req: Request, res: Response) => {
-  return res.status(200).send('ListContents');
+const defaultPage = 1;
+const defaultPerPage = 20;
+
+const listContents = async (req: Request, res: Response) => {
+  const serviceBApi = new ContentsApi(ServiceBConfig(req.headers))
+  const request: ListContentsRequest = {
+    page: req.query.page ? Number(req.query.page) : defaultPage,
+    perPage: req.query.per_page ? Number(req.query.per_page) : defaultPerPage,
+  };
+  let statusCode = 200;
+  let result: ListContents200Response|ResponseError|undefined;
+
+  try{
+    result = await serviceBApi.listContents(request)
+  }catch(error: any){
+    if (error instanceof ResponseError) {
+      statusCode = error.response.status
+      result = await error.response.json()
+    }
+  }
+
+  console.log(result)
+
+  return res.status(statusCode).send(result);
 }
 
-const fetchContentByID = (req: Request, res: Response) => {
-  return res.status(200).send('ContentByID');
-}
+const fetchContentByID = async (req: Request, res: Response) => {
+  const serviceBApi = new ContentsApi(ServiceBConfig(req.headers))
+  const request: FetchContentByIDRequest = {id: Number(req.params.id)};
 
-export const fetchContentBySlug = (req: Request, res: Response) => {
-  return res.status(200).send('ContentBySlug');
+  let statusCode = 200;
+  let result: Content|ResponseError|undefined;
+
+  try{
+    result = await serviceBApi.fetchContentByID(request)
+  }catch(error: any){
+    if (error instanceof ResponseError) {
+      statusCode = error.response.status
+      result = await error.response.json()
+    }
+  }
+
+
+  return res.status(statusCode).send(result);
 }
 
 module.exports = {
   ListContents: listContents,
   FetchContentByID: fetchContentByID,
-  FetchContentBySlug: fetchContentBySlug,
 };
