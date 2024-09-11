@@ -1,0 +1,15 @@
+# See https://redocly.com/docs/cli/configuration/
+
+extends:
+  - recommended
+
+theme:
+  openapi:
+    generateCodeSamples:
+      languages:
+        - lang: curl
+        - lang: JavaScript
+
+rules:
+  no-server-example.com: off
+  info-license-url: off

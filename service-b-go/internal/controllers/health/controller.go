@@ -2,9 +2,10 @@ package health
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/majidmvulle/ps-exercise/service-b-go/internal/models"
-	"net/http"
 )
 
 type healthRepo interface {

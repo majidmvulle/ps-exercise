@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+
 	"github.com/majidmvulle/ps-exercise/service-b-go/internal/models"
 )
 

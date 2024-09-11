@@ -134,7 +134,7 @@ linters:
     - durationcheck
     - errorlint
     - exhaustive
-    - exportloopref
+    - copyloopvar
     - forcetypeassert
     - funlen
     - gci

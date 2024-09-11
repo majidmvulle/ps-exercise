@@ -2,10 +2,11 @@ package contents
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
-	"github.com/majidmvulle/ps-exercise/service-b-go/internal/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
+	"github.com/majidmvulle/ps-exercise/service-b-go/internal/models"
 )
 
 type contentsRepo interface {
@@ -65,7 +66,7 @@ func (ct *Controller) List(c *gin.Context) {
 		return
 	}
 
-	contents := make([]models.Content, len(res))
+	contents := make([]models.Content, len(res), len(res))
 
 	for i, content := range res {
 		contents[i] = models.Content{

@@ -2,7 +2,7 @@ import {Configuration, HTTPHeaders} from "../clients/service-b";
 import {IncomingHttpHeaders} from "node:http";
 
 export const ServiceBConfig = (incomingHttpHeaders?: IncomingHttpHeaders): Configuration => {
-    let headers: HTTPHeaders = {}
+    const headers: HTTPHeaders = {}
 
     headers["accept"] = "application/json";
 

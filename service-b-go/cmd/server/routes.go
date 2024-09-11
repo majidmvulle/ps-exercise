@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+
 	"github.com/gin-gonic/gin"
 	ctrlContents "github.com/majidmvulle/ps-exercise/service-b-go/internal/controllers/contents"
 	ctrlHealth "github.com/majidmvulle/ps-exercise/service-b-go/internal/controllers/health"

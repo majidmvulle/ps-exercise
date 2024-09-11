@@ -12,6 +12,12 @@ bundle/openapi:
 	@! [ -x "$(command -v redocly)" ] || npm i -g @redocly/cli@latest
 	redocly bundle docs/openapi/api.yaml -o docs/openapi/api.bundled.yaml
 
+## lint/openapi: lints openapi api files
+.PHONE: lint/openapi
+lint/openapi:
+	@! [ -x "$(command -v redocly)" ] || npm i -g @redocly/cli@latest
+	redocly lint docs/openapi/api.yaml
+
 ## lint/ts: lints typescript code
 .PHONY: lint/ts
 lint/ts:

@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+
 	"github.com/majidmvulle/ps-exercise/service-b-go/internal/models"
 )
 
@@ -55,68 +56,44 @@ func (r *Repository) List(
 	listParams models.ListContentsParams,
 ) ([]models.ContentWithLocalization, models.Pagination, *models.ValidationError) {
 	contents := make([]models.ContentWithLocalization, 0)
-
 	offset, perPage := offsetLimit(listParams.Page, listParams.PerPage)
+	count := 0
 
-	rows, err := r.db.QueryContext(
-		ctx,
-		"select * from contents offset $1 limit $2", offset, perPage,
-	)
+	rows, err := r.db.QueryContext(ctx, "select * from contents offset $1 limit $2", offset, perPage)
 	if err != nil {
-		return nil,
-			models.Pagination{},
-			&models.ValidationError{
-				ErrorCode: models.ValidationErrorErrorCodeInternalError,
-				Errors:    nil,
-				Message:   err.Error(),
-			}
+		return nil, models.Pagination{}, &models.ValidationError{
+			ErrorCode: models.ValidationErrorErrorCodeInternalError, Errors: nil, Message: err.Error(),
+		}
 	}
 
 	defer rows.Close()
 
-	count := 0
-
 	for rows.Next() {
 		var content models.ContentWithLocalization
 
-		if err := rows.Scan(
-			&content.Id,
-			&content.Text,
-			&content.TextLocalized,
-			&content.CreatedAt,
-			&content.UpdatedAt,
-		); err != nil {
-			return nil,
-				models.Pagination{},
-				&models.ValidationError{
-					ErrorCode: models.ValidationErrorErrorCodeInternalError,
-					Errors:    nil,
-					Message:   err.Error(),
-				}
+		if err := rows.Scan(&content.Id, &content.Text, &content.TextLocalized, &content.CreatedAt,
+			&content.UpdatedAt); err != nil {
+			return nil, models.Pagination{}, &models.ValidationError{
+				ErrorCode: models.ValidationErrorErrorCodeInternalError, Errors: nil, Message: err.Error(),
+			}
 		}
+
 		contents = append(contents, content)
+
 		count++
 	}
 
 	if err := rows.Err(); err != nil {
-		return nil,
-			models.Pagination{},
-			&models.ValidationError{
-				ErrorCode: models.ValidationErrorErrorCodeInternalError,
-				Errors:    nil,
-				Message:   err.Error(),
-			}
+		return nil, models.Pagination{}, &models.ValidationError{
+			ErrorCode: models.ValidationErrorErrorCodeInternalError, Errors: nil, Message: err.Error(),
+		}
 	}
 
 	total, err := r.total(ctx)
 	if err != nil {
-		return nil,
-			models.Pagination{},
-			&models.ValidationError{
-				ErrorCode: models.ValidationErrorErrorCodeInternalError,
-				Errors:    nil,
-				Message:   err.Error(),
-			}
+		return nil, models.Pagination{}, &models.ValidationError{
+			ErrorCode: models.ValidationErrorErrorCodeInternalError, Errors: nil, Message: err.Error(),
+		}
 	}
 
 	page := 1
@@ -130,13 +107,7 @@ func (r *Repository) List(
 	}
 
 	return contents,
-		models.Pagination{
-			Count:      count,
-			Page:       page,
-			PerPage:    perPage,
-			Total:      int(total),
-			TotalPages: totalPages,
-		},
+		models.Pagination{Count: count, Page: page, PerPage: perPage, Total: int(total), TotalPages: totalPages},
 		nil
 }
 

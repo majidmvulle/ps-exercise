@@ -22,7 +22,8 @@ const listContents = async (req: Request, res: Response) => {
 
   try{
     result = await serviceBApi.listContents(request)
-  }catch(error: any){
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }catch(error: any){ //contradicts with: TS1196: Catch clause variable type annotation must be any or unknown if specified.
     if (error instanceof ResponseError) {
       statusCode = error.response.status
       result = await error.response.json()
@@ -43,7 +44,8 @@ const fetchContentByID = async (req: Request, res: Response) => {
 
   try{
     result = await serviceBApi.fetchContentByID(request)
-  }catch(error: any){
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }catch(error: any){ //contradicts with: TS1196: Catch clause variable type annotation must be any or unknown if specified.
     if (error instanceof ResponseError) {
       statusCode = error.response.status
       result = await error.response.json()

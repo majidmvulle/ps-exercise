@@ -15,11 +15,17 @@ bundle/openapi:
 	@! [ -x "$(command -v redocly)" ] || npm i -g @redocly/cli@latest
 	redocly bundle docs/openapi/api.yaml -o docs/openapi/api.bundled.yaml
 
+## lint/openapi: lints openapi api files
+.PHONE: lint/openapi
+lint/openapi:
+	@! [ -x "$(command -v redocly)" ] || npm i -g @redocly/cli@latest
+	redocly lint docs/openapi/api.yaml
+
 ## lint/go: lints go code
 .PHONY: lint/go
 lint/go:
 	@! [ -x "$(command -v golangci-lint)" ] || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.59.0
-	@golangci-lint run --timeout=3m --issues-exit-code=0
+	@golangci-lint run --fix
 
 ## test: run all tests
 .PHONY: test

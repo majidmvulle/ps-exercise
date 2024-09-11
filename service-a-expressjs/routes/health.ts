@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {HealthApi, HealthCheck, ResponseError} from "../clients/service-b";
+import {HealthApi} from "../clients/service-b";
 import {ServiceBConfig} from "../config/config";
 
 const healthCheck = async (req: Request, res: Response) => {
@@ -9,7 +9,8 @@ const healthCheck = async (req: Request, res: Response) => {
 
     try{
         result = await serviceBApi.healthCheck()
-    }catch(error: any){
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }catch(error: any){ //contradicts with: TS1196: Catch clause variable type annotation must be any or unknown if specified.
         statusCode = error.status;
     }
 

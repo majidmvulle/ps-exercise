@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction, Express, Errback, ErrorRequestHandler} from "express";
+import express, {Request, Response, NextFunction, Express} from "express";
 import dotenv from "dotenv";
 import * as OpenApiValidator from 'express-openapi-validator';
 import path from "node:path";
@@ -41,7 +41,9 @@ app.use(
 
 app.use(bodyParser.json());
 
-const jsonErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+//err: any is part of the expressjs handler signature.
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+const jsonErrorHandler: (err: any, req: Request, res: Response, next: NextFunction) => void = (err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status).send({
     status: err.status,
     message: err.message,
