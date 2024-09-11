@@ -1,0 +1,48 @@
+name: Generate service-a code (JavaScript/Typescript)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'service-b-go/docs/openapi/**.yaml'
+      - 'service-b-go/docs/openapi/**.yml'
+
+jobs:
+  generate-typescript-client-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/cache/restore@v3
+        id: restore-cache-service-b-bundled-openapi-definition
+        with:
+          path: service-b-go/docs/openapi/api.bundled.yaml
+          key: ${{ runner.os }}-service-b-bundled-openapi-definition
+
+      - name: Cache Models and Clients (Typescript)
+        id: cache-service-a-models-clients-ts
+        uses: actions/cache@v4
+        with:
+          path: service-a-expressjs/clients
+          key: ${{ runner.os }}-service-a-models-clients-ts
+
+      - name: Set up node
+        if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v4
+
+      - name: Install openapi-generator-cli
+        if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
+        run: npm install --global @openapitools/openapi-generator-cli
+
+      - name: Setup Java
+        if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Generate Models and Clients (Typescript)
+        if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
+        run: openapi-generator-cli generate -i ${GITHUB_WORKSPACE}/service-a-expressjs/docs/openapi/api-service-b.bundled.yaml -g typescript-fetch -o ${GITHUB_WORKSPACE}/service-a-expressjs/clients/service-b --skip-validate-spec --additional-properties=modelPropertyNaming=original

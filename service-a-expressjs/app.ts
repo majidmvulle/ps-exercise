@@ -11,11 +11,6 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const spec = path.join(__dirname, 'docs', 'openapi', 'api.bundled.yaml');
 
-const apiKeyValidator = function (req: Request, res: Response, next: NextFunction) {
-
-    next()
-}
-
 app.use(
     OpenApiValidator.middleware({
         apiSpec: spec,
@@ -52,8 +47,6 @@ const jsonErrorHandler: (err: any, req: Request, res: Response, next: NextFuncti
 };
 
 app.use(jsonErrorHandler);
-
-app.use(apiKeyValidator);
 
 http.createServer(app).listen(port);
 

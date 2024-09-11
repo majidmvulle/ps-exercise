@@ -1,0 +1,69 @@
+name: Generate service-b code (Golang)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'service-b-go/docs/openapi/**.yaml'
+      - 'service-b-go/docs/openapi/**.yml'
+
+jobs:
+  bundle-openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Bundled OpenAPI definition
+        id: cache-service-b-bundled-openapi-definition
+        uses: actions/cache@v4
+        with:
+          path: service-b-go/docs/openapi/api.bundled.yaml
+          key: ${{ runner.os }}-service-b-bundled-openapi-definition
+
+      - uses: actions/setup-node@v4
+        if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Redocly CLI
+        if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
+        run: npm install -g @redocly/cli@latest
+
+      - name: Bundle OpenAPI definition
+        if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
+        run: redocly bundle service-b-go/docs/openapi/api.yaml -o service-b-go/docs/openapi/api.bundled.yaml
+
+  generate-go-code:
+    needs: [bundle-openapi]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Models
+        id: cache-service-b-models-go
+        uses: actions/cache@v4
+        with:
+          path: service-b-go/internal/models/models.gen.go
+          key: ${{ runner.os }}-service-b-models-go
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+        if: steps.cache-service-b-models-go.outputs.cache-hit != 'true'
+        with:
+          go-version: "1.23"
+          check-latest: true
+          cache-dependency-path:  "${{ matrix.dir }}/*.sum"
+
+      - name: Install oapi-codegen
+        uses: ./.github/actions/go-install
+        if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
+        with:
+          package-path: "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest"
+
+      - name: Generate Models
+        if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
+        run: oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml

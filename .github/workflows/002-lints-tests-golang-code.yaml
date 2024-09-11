@@ -1,0 +1,51 @@
+name: Lint & Test Golang Code
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'service-b-go/**.go'
+      - 'service-b-go/go.mod'
+      - 'service-b-go/go.sum'
+
+concurrency:
+  group: ci-lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-tests:
+    timeout-minutes: 3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          check-latest: true
+          cache-dependency-path:  "service-b-go/*.sum"
+
+      - name: Install dependencies
+        working-directory: service-b-go
+        run: go get ./...
+
+      - name: Run Go mod tidy
+        working-directory: service-b-go
+        run: go mod tidy
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6.0.1
+        with:
+          working-directory: service-b-go
+          args: --out-format=github-actions
+
+      - name: Test with the Go CLI
+        working-directory: service-b-go
+        run: mkdir -p .coverage && go test ./... -race -coverprofile=./.coverage/coverage.out -covermode=atomic -coverpkg=./...
+
+      - name: Generate Test Coverage
+        working-directory: service-b-go
+        run: go tool cover -func=./.coverage/coverage.out

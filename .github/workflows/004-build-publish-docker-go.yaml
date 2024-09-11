@@ -1,0 +1,37 @@
+name: Create and publish a Docker image - Go
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'service-b-go/**.go'
+      - 'service-b-go/go.mod'
+      - 'service-b-go/go.sum'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/cache/restore@v3
+        id: restore-cache-service-b-models-go
+        with:
+          path: service-b-go/internal/models/models.gen.go
+          key: ${{ runner.os }}-service-b-models-go
+
+      - name: Run Build and Publish
+        uses: ./.github/actions/build-publish-docker-action
+        with:
+          registry: ${{ env.REGISTRY }}
+          image_name: "service-b"

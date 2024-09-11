@@ -1,7 +1,7 @@
 name: Lint OpenAPI Documentation
 
 on:
-  pull_request:
+  push:
     branches:
       - main
     paths:
@@ -55,7 +55,7 @@ jobs:
           PATHS: ""
         run: |
           for dir in ${{ needs.check-changed-directories.outputs.CHANGED_DIRS }}; do
-            echo "PATHS=$PATHS$dir/openapi.yaml" >> "$GITHUB_OUTPUT"
+            echo "PATHS=$PATHS$dir/api.yaml" >> "$GITHUB_OUTPUT"
           done
 
       - name: Set up node

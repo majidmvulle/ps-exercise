@@ -1,0 +1,38 @@
+name: Create and publish a Docker image - Expressjs
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'service-a-expressjs/**.ts'
+      - 'service-a-expressjs/**.js'
+      - 'service-a-expressjs/package.json'
+      - 'service-a-expressjs/yarn.lock'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/cache/restore@v3
+        id: restore-cache-service-a-models-clients-ts
+        with:
+          path: service-a-expressjs/clients
+          key: ${{ runner.os }}-service-a-models-clients-ts
+
+      - name: Run Build and Publish
+        uses: ./.github/actions/build-publish-docker-action
+        with:
+          registry: ${{ env.REGISTRY }}
+          image_name: "service-a"
