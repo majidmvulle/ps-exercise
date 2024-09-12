@@ -32,6 +32,8 @@ jobs:
       - name: Set up node
         if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
       - name: Install openapi-generator-cli
         if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
