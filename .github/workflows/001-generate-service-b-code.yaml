@@ -60,10 +60,17 @@ jobs:
 
       - name: Install oapi-codegen
         uses: ./.github/actions/go-install
-        if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
+        if: steps.cache-service-b-models-go.outputs.cache-hit != 'true'
         with:
           package-path: "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen"
 
+      - uses: actions/cache/restore@v3
+        id: restore-cache-service-b-bundled-openapi-definition
+        if: steps.cache-service-b-models-go.outputs.cache-hit != 'true'
+        with:
+          path: service-b-go/docs/openapi/api.bundled.yaml
+          key: ${{ runner.os }}-service-b-bundled-openapi-definition
+
       - name: Generate Models
-        if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
+        if: steps.cache-service-b-models-go.outputs.cache-hit != 'true'
         run: ${{ github.workspace }}/oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml
