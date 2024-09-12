@@ -25,6 +25,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
+        continue-on-error: false
         with:
           node-version: 20
 
