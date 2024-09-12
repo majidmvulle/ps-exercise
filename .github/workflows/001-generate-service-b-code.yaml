@@ -27,7 +27,6 @@ jobs:
         if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install Redocly CLI
         if: steps.cache-service-b-bundled-openapi-definition.outputs.cache-hit != 'true'
