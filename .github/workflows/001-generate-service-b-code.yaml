@@ -66,4 +66,4 @@ jobs:
 
       - name: Generate Models
         if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
-        run: oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml
+        run: ${{ github.workspace }}/oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml
