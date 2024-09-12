@@ -8,6 +8,7 @@ on:
       - 'service-b-go/**.go'
       - 'service-b-go/go.mod'
       - 'service-b-go/go.sum'
+  workflow_dispatch:
 
 concurrency:
   group: ci-lint-${{ github.ref }}

@@ -7,7 +7,7 @@ on:
       - 'service-b-go/**.go'
       - 'service-b-go/go.mod'
       - 'service-b-go/go.sum'
-
+  workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}

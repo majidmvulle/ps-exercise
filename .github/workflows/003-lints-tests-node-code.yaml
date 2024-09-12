@@ -9,7 +9,7 @@ on:
       - 'service-a-expressjs/**.js'
       - 'service-a-expressjs/package.json'
       - 'service-a-expressjs/yarn.lock'
-
+  workflow_dispatch:
 concurrency:
   group: ci-lint-${{ github.ref }}
   cancel-in-progress: true
