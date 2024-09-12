@@ -1,0 +1,3 @@
+app_name         = "ps-exercise"
+environment      = "dev" #dev, prod
+aws_default_tags = { Environment = "dev", App = "ps-exercise", OpenTofu = "true" }
