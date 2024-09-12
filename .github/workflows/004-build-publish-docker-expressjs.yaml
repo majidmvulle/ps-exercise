@@ -37,3 +37,4 @@ jobs:
           registry: ${{ env.REGISTRY }}
           image_name: "service-a"
           token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${GITHUB_WORKSPACE}/service-a-expressjs/Dockerfile

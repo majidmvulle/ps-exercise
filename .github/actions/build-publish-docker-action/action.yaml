@@ -10,6 +10,9 @@ inputs:
   token:
     description: "Token to use when publishing the image"
     required: true
+  file:
+    description: "Path to the Dockerfile"
+    required: true
 
 runs:
   using: "composite"
@@ -32,5 +35,6 @@ runs:
       with:
         platforms: linux/amd64,linux/arm64
         push: true
+        file: ${{ inputs.file }}
         tags: |
           ${{ inputs.registry }}/${{inputs.image_name}}:latest
