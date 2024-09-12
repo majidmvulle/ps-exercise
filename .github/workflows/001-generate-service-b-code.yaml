@@ -62,7 +62,7 @@ jobs:
         uses: ./.github/actions/go-install
         if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
         with:
-          package-path: "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest"
+          package-path: "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen"
 
       - name: Generate Models
         if: steps.cache-models-service-b-go.outputs.cache-hit != 'true'
