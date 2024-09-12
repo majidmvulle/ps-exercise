@@ -34,12 +34,14 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('service-a-expressjs/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-${{ hashFiles('service-a-expressjs/yarn.lock') }}
 
       - name: Lint typescript
+        working-directory: service-a-expressjs
         run: npx eslint .
 
       - name: Run tests with coverage
+        working-directory: service-a-expressjs
         run: npx jest --passWithNoTests --coverage
