@@ -2,13 +2,12 @@ FROM golang:1.23 AS build
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY ./service-b-go/go.mod ./
+COPY ./service-b-go/go.sum ./
 
 RUN go mod download
 
-COPY . ./
-
-RUN #echo $(ls -la /app/)
+COPY ./service-b-go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /service-b ./cmd/server
 

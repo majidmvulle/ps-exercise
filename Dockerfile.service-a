@@ -2,11 +2,12 @@ FROM node:20.15.0 AS build
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY ./service-a-expressjs/package.json ./
+COPY service-a-expressjs/yarn.lock ./
 
 RUN yarn install
 
-COPY . ./
+COPY ./service-a-expressjs/ ./
 
 FROM node:20.15.0-alpine3.20
 

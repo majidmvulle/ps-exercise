@@ -36,4 +36,4 @@ jobs:
           registry: ${{ env.REGISTRY }}
           image_name: "service-b"
           token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./service-b-go/Dockerfile
+          file: Dockerfile.service-b
