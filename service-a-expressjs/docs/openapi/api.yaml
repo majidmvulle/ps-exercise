@@ -32,6 +32,7 @@ paths:
   /api/v1/contents/{id}:
     $ref: "paths/contents-by-id.yaml"
 
+  # Health
   /health:
     $ref: "paths/health.yaml"
 
