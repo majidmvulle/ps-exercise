@@ -75,4 +75,4 @@ jobs:
       - name: Generate Models
         working-directory: service-b-go
         if: steps.cache-service-b-models-go.outputs.cache-hit != 'true'
-        run: ${{ github.workspace }}/oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml
+        run: ${{ github.workspace }}/oapi-codegen --config=${GITHUB_WORKSPACE}/service-b-go/oapi.yaml -o ${GITHUB_WORKSPACE}/service-b-go/internal/models/models.gen.go ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml

@@ -81,7 +81,7 @@ seed/down:
 .PHONY: generate/models
 generate/models:
 	@! [ -x "$(command -v oapi-codegen)" ] || go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
-	oapi-codegen --config=oapi.yaml ./docs/openapi/api.bundled.yaml
+	oapi-codegen --config=oapi.yaml -o ./internal/models/models.gen.go ./docs/openapi/api.bundled.yaml
 
 .PHONY: build
 build:
