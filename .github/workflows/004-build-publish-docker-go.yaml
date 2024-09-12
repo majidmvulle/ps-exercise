@@ -34,12 +34,12 @@ jobs:
         if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
         run: cat service-b-go/internal/models/models.gen.go
 
-      # - name: Run Build and Publish
-      #   uses: ./.github/actions/build-publish-docker-action
-      #   if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
-      #   continue-on-error: false
-      #   with:
-      #     registry: ${{ env.REGISTRY }}
-      #     image_name: "service-b"
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     file: Dockerfile.service-b
+      - name: Run Build and Publish
+        uses: ./.github/actions/build-publish-docker-action
+        if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
+        continue-on-error: false
+        with:
+          registry: ${{ env.REGISTRY }}
+          image_name: "service-b"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          file: Dockerfile.service-b
