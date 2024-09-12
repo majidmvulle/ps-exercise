@@ -27,12 +27,13 @@ jobs:
       - uses: actions/cache/restore@v3
         id: restore-cache-service-b-models-go
         with:
-          path: internal/models/models.gen.go
+          path: ${GITHUB_WORKSPACE}/service-b-go/internal/models/models.gen.go
           key: ${{ runner.os }}-service-b-models-go
 
       - name: Run Build and Publish
         uses: ./.github/actions/build-publish-docker-action
         if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
+        continue-on-error: false
         with:
           registry: ${{ env.REGISTRY }}
           image_name: "service-b"

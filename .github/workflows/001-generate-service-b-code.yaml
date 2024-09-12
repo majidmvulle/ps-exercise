@@ -48,7 +48,7 @@ jobs:
         id: cache-service-b-models-go
         uses: actions/cache@v4
         with:
-          path: service-b-go/internal/models/models.gen.go
+          path: ${GITHUB_WORKSPACE}/service-b-go/internal/models/models.gen.go
           key: ${{ runner.os }}-service-b-models-go
 
       - name: Setup Go environment

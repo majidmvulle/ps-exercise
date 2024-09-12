@@ -28,7 +28,7 @@ jobs:
       - uses: actions/cache/restore@v3
         id: restore-cache-service-a-models-clients-ts
         with:
-          path: service-a-expressjs/clients
+          path: ${GITHUB_WORKSPACE}/service-a-expressjs/clients
           key: ${{ runner.os }}-service-a-models-clients-ts
 
       - name: Run Build and Publish
