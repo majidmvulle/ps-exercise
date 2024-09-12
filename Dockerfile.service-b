@@ -2,13 +2,13 @@ FROM golang:1.23 AS build
 
 WORKDIR /app
 
-COPY ./service-b-go/go.mod ./
-COPY ./service-b-go/go.sum ./
+COPY service-b-go/go.mod ./
+COPY service-b-go/go.sum ./
 
 RUN go mod download
 
-COPY ./service-b-go ./
-COPY ./service-b-go/internal/models/models.gen.go ./
+COPY service-b-go ./
+COPY service-b-go/internal/models/models.gen.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /service-b ./cmd/server
 
