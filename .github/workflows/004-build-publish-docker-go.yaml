@@ -32,6 +32,7 @@ jobs:
 
       - name: Run Build and Publish
         uses: ./.github/actions/build-publish-docker-action
+        if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
         with:
           registry: ${{ env.REGISTRY }}
           image_name: "service-b"
