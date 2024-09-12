@@ -30,14 +30,6 @@ jobs:
           path: service-b-go/internal/models/models.gen.go
           key: ${{ runner.os }}-service-b-models-go
 
-      - name: Show cache content
-        if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
-        run: cat service-b-go/internal/models/models.gen.go
-      
-      - name: Show directory
-        if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'
-        run: ls -ls service-b-go && ls -la service-b-go/internal/models/
-
       - name: Run Build and Publish
         uses: ./.github/actions/build-publish-docker-action
         if: steps.restore-cache-service-b-models-go.outputs.cache-hit == 'true'

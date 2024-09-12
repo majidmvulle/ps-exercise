@@ -38,4 +38,4 @@ runs:
         push: true
         file: ${{ inputs.file }}
         tags: |
-          ${{ inputs.registry }}/${{inputs.image_name}}:latest
+          ${{ inputs.registry }}/${{github.repository}}/${{inputs.image_name}}:latest
