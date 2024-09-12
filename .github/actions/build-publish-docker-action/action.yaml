@@ -7,6 +7,9 @@ inputs:
   image_name:
     description: "The name of the image to use"
     required: true
+  token:
+    description: "Token to use when publishing the image"
+    required: true
 
 runs:
   using: "composite"
@@ -22,7 +25,7 @@ runs:
       with:
         registry: ${{ inputs.registry }}
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.token }}
 
     - name: Build and push
       uses: docker/build-push-action@v6

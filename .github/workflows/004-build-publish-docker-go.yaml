@@ -35,3 +35,4 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           image_name: "service-b"
+          token: ${{ secrets.GITHUB_TOKEN }}
