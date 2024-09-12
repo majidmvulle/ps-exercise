@@ -29,6 +29,12 @@ jobs:
           check-latest: true
           cache-dependency-path:  "service-b-go/*.sum"
 
+      - uses: actions/cache/restore@v3
+        id: restore-cache-service-b-models-go
+        with:
+          path: service-b-go/internal/models/models.gen.go
+          key: ${{ runner.os }}-service-b-models-go
+
       - name: Install dependencies
         working-directory: service-b-go
         run: go get ./...
