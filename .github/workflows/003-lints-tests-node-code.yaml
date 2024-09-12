@@ -1,4 +1,4 @@
-name: Lint & Test Golang Code
+name: Lint & Test Node/Expressjs Code
 
 on:
   pull_request:

@@ -46,4 +46,4 @@ jobs:
 
       - name: Generate Models and Clients (Typescript)
         if: steps.cache-service-a-models-clients-ts.outputs.cache-hit != 'true'
-        run: openapi-generator-cli generate -i ${GITHUB_WORKSPACE}/service-a-expressjs/docs/openapi/api-service-b.bundled.yaml -g typescript-fetch -o ${GITHUB_WORKSPACE}/service-a-expressjs/clients/service-b --skip-validate-spec --additional-properties=modelPropertyNaming=original
+        run: openapi-generator-cli generate -i ${GITHUB_WORKSPACE}/service-b-go/docs/openapi/api.bundled.yaml -g typescript-fetch -o ${GITHUB_WORKSPACE}/service-a-expressjs/clients/service-b --skip-validate-spec --additional-properties=modelPropertyNaming=original
